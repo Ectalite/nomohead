@@ -14,7 +14,7 @@ if [ "$dweet_id_tunnel" = "" ]; then
 	d_id_tun=$d_id_ip
 fi
 
-echo "Enter the delay between posting IP and querying tunnel (Empty for default of 1m): "
+echo "Enter the delay between refreshing dweet values (Empty for default of 1m): "
 read tun_delay
 
 if [ "$tun_delay" = "" ]; then
