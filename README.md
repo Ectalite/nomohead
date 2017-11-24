@@ -1,8 +1,8 @@
 # No-Mo-Head
 
-Note: This is a fork of hrishioa's nomohead with some fixes and improvements.
+Note: This is a fork of hrishioa's nomohead with some fixes and improvements as it was originally broken.
 
-Here's a bit of background: I frequently use my Pi in headless mode, but I live in a college where the Wifi doesn't let you use static IPs. I've implemented a number of workarounds for this problem, but this is the one that stuck. If you can connect to the internet but have a problem connecting to the Pi, this could help.
+Here's a bit of background: I frequently use my Pi in headless mode, but I live in a University where the Wifi doesn't let you use static IPs. I've implemented a number of workarounds for this problem, but this is the one that stuck. If you can connect to the internet but have a problem connecting to the Pi, this could help.
 
 ## Installation
 
