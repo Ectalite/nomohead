@@ -30,7 +30,7 @@ Next, run the install script:
 
 Setup asks for the following parameters:
 
-1. Location of ngrok - enter the directory where you installed ngrok along with ngrok executable (not just the directory). For example, if you put the unzipped ngrok in the ~/Downloads folder, type "~/Downloads/ngrok"
+1. Location of ngrok - enter the directory where you installed ngrok along with ngrok executable (not just the directory). For example, if you put the unzipped ngrok in the \~/Downloads folder, type "\~/Downloads/ngrok"
 2. Dweet ID - This is the ID you will be using to broadcast the IP. Enter something you think is unique (i.e. not raspi)
 3. Dweet ID for tunnel - The first parameter is for the IP. You can use separate IDs for tunnel and IP if you want, if not just press ENTER.
 4. Delay - The ngrok service takes an unpredictable amount of time to initialize (depends on processor and network load), but 1m seems to work fine for me. Increase this value if the ip address shows up but the ngrok tunnel never does. (It is worth pointing out that this is a little redundant. You can simply login to your ngrok account to see open tunnels and connect to them). This is also the amount of time between repeated pushes to dweet.io, so do not make it too low.
