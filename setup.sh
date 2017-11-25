@@ -27,6 +27,7 @@ read server
 if [ "$server" -ne "us" ] || [ "$server" -ne "eu" ] || [ "$server" -ne "ap" ] || [ "$server" -ne "au" ]; then
 	echo "Invalid server choice, setting to eu instead"
 	server="eu"
+fi
 
 printf "ngrok_location=${ngrok_loc}\ndweet_id_ip=${d_id_ip}\ndweet_id_tunnel=${d_id_tun}\ntunnel_delay=${tun_delay}\nngrok_server=${server}" > config.cfg
 
