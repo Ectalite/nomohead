@@ -1,18 +1,20 @@
-#No-Mo-Head
+# No-Mo-Head
 
-Here's a bit of background: I frequently use my Pi in headless mode, but I live in a college where the Wifi doesn't let you use static IPs. I've implemented a number of workarounds for this problem, but this is the one that stuck. If you can connect to the internet but have a problem connecting to the Pi, this could help.
+Note: This is a fork of hrishioa's nomohead with some fixes and improvements as it was originally broken.
+
+Here's a bit of background: I frequently use my Pi in headless mode, but I live in a University where the Wifi doesn't let you use static IPs. I've implemented a number of workarounds for this problem, but this is the one that stuck. If you can connect to the internet but have a problem connecting to the Pi, this could help.
 
 ## Installation
 
 First clone the repository (if you have git on your Raspi. If not, just download):
 ```
-git clone https://github.com/hrishioa/nomohead.git
+git clone https://github.com/OscarVanL/nomohead.git
 ```
 
 **Don't** install yet! Install ngrok first in a directory of your choice:
 ```
-wget https://dl.ngrok.com/ngrok_2.0.19_linux_arm.zip
-unzip ngrok.zip
+wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-arm.zip
+unzip ngrok-stable-linux-arm.zip
 ```
 (This was the linux release of ngrok when I wrote this. Do check for updates on [the website](https://ngrok.com/download))
 
@@ -28,10 +30,10 @@ Next, run the install script:
 
 Setup asks for the following parameters:
 
-1. Location of ngrok - enter the directory where you installed ngrok along with ngrok executable (not just the directory)
+1. Location of ngrok - enter the directory where you installed ngrok along with ngrok executable (not just the directory). For example, if you put the unzipped ngrok in the \~/Downloads folder, type "\~/Downloads/ngrok"
 2. Dweet ID - This is the ID you will be using to broadcast the IP. Enter something you think is unique (i.e. not raspi)
 3. Dweet ID for tunnel - The first parameter is for the IP. You can use separate IDs for tunnel and IP if you want, if not just press ENTER.
-4. Delay - The ngrok service takes an unpredictable amount of time to initialize (depends on processor and network load), but 1m seems to work fine for me. Increase this value if the ip address shows up but the ngrok tunnel never does. (It is worth pointing out that this is a little redundant. You can simply login to your ngrok account to see open tunnels and connect to them)
+4. Delay - The ngrok service takes an unpredictable amount of time to initialize (depends on processor and network load), but 1m seems to work fine for me. Increase this value if the ip address shows up but the ngrok tunnel never does. (It is worth pointing out that this is a little redundant. You can simply login to your ngrok account to see open tunnels and connect to them). This is also the amount of time between repeated pushes to dweet.io, so do not make it too low.
 
 Once all values are entered, a cron job is created that runs at boot.
 
@@ -49,5 +51,18 @@ http://dweet.io/get/dweets/for/<RASPID>
 ```
 and replace _RASPID_ with the IP or Tunnel ID you gave during Setup. 
 I prefer the former because it looks better, but it is certainly possible to run automated scripts that poll the JSON from the latter and do things once the Raspi comes online.
+
+## Limitations
+Only one ngrok tunnel can exist for a free account. In my case, I have two Raspberry Pis and want two tunnels, but if I try to run the script on both Pis only one is successful.
+To bypass this limitation, I found that if I start one Pi on the USA ngrok server and the other on the EU server this bypasses this limitation.
+I change
+```
+COMMAND=("${ngrok_location}" tcp -region eu 22)
+```
+to
+```
+COMMAND=("${ngrok_location}" tcp -region us 22)
+```
+on one of the Raspberry Pis, and leaving the other on the EU server. This allows me to have two ngrok tunnels on a free account!
 
 #### Happy Hacking!
