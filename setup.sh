@@ -21,7 +21,14 @@ if [ "$tun_delay" = "" ]; then
 	tun_delay="1m"
 fi
 
-printf "ngrok_location=${ngrok_loc}\ndweet_id_ip=${d_id_ip}\ndweet_id_tunnel=${d_id_tun}\ntunnel_delay=${tun_delay}" > config.cfg
+echo "Enter the ngrok server location you wish to use [us, eu (Europe), ap (Asia/Pacific), au (Australia)]: "
+read server
+
+if [ "$server" -ne "us" ] || [ "$server" -ne "eu" ] || [ "$server" -ne "ap" ] || [ "$server" -ne "au" ]; then
+	echo "Invalid server choice, setting to eu instead"
+	server="eu"
+
+printf "ngrok_location=${ngrok_loc}\ndweet_id_ip=${d_id_ip}\ndweet_id_tunnel=${d_id_tun}\ntunnel_delay=${tun_delay}\nngrok_server=${server}" > config.cfg
 
 echo "Adding Cron job..."
 

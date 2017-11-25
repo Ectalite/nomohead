@@ -10,8 +10,8 @@ DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 echo "Starting ngrok..."
 
 #Creates command to run ngrok using defined directory in setup.sh (Eg: ~/Downloads/ngrok)
-#This creates it on the EU server and allows us to use ssh through the tunnel
-COMMAND=("${ngrok_location}" tcp -region eu 22) 
+#This allows us to use ssh through the tunnel
+COMMAND=("${ngrok_location}" tcp -region "${ngrok_server}" 22) 
 
 "${COMMAND[@]}" 2> /dev/null &
 
