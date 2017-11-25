@@ -24,7 +24,9 @@ fi
 echo "Enter the ngrok server location you wish to use [us, eu (Europe), ap (Asia/Pacific), au (Australia)]: "
 read server
 
-if [ "$server" -ne "us" ] || [ "$server" -ne "eu" ] || [ "$server" -ne "ap" ] || [ "$server" -ne "au" ]; then
+if [ "$server" == "us" ] || [ "$server" == "eu" ] || [ "$server" == "ap" ] || [ "$server" == "au" ]; then
+	echo "Selected ${server} as ngrok server"
+else
 	echo "Invalid server choice, setting to eu instead"
 	server="eu"
 fi
