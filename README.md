@@ -55,14 +55,6 @@ I prefer the former because it looks better, but it is certainly possible to run
 ## Limitations
 Only one ngrok tunnel can exist for a free account. In my case, I have two Raspberry Pis and want two tunnels, but if I try to run the script on both Pis only one is successful.
 To bypass this limitation, I found that if I start one Pi on the USA ngrok server and the other on the EU server this bypasses this limitation.
-I change
-```
-COMMAND=("${ngrok_location}" tcp -region eu 22)
-```
-to
-```
-COMMAND=("${ngrok_location}" tcp -region us 22)
-```
-on one of the Raspberry Pis, and leaving the other on the EU server. This allows me to have two ngrok tunnels on a free account!
+This allows me to have two ngrok tunnels on a free account!
 
 #### Happy Hacking!
