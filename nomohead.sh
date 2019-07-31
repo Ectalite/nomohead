@@ -10,8 +10,7 @@ DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 echo "Starting ngrok..."
 
 #Creates command to run ngrok using defined directory in setup.sh (Eg: ~/Downloads/ngrok)
-#This allows us to use ssh through the tunnel
-COMMAND=("${ngrok_location}" tcp -region "${ngrok_server}" 22) 
+COMMAND=("${DIR}/ngrok" tcp -region "${ngrok_server}" "${port}")
 
 "${COMMAND[@]}" 2> /dev/null &
 
@@ -30,9 +29,9 @@ do
 	TUNNEL="$(curl http://localhost:4040/api/tunnels)"
 	echo "${TUNNEL}" > tunnel_info.json
 	#Gets the tunnel's address and port
-	TUNNEL_TCP=$(grep -Po 'tcp:\/\/([\S]*?)"' ./tunnel_info.json )
+	TUNNEL_TCP=$(grep -Po 'tcp:\/\/[^"]+' ./tunnel_info.json )
 
 	#Pushes all this information to dweet.io
-	wget --post-data="ssh_tunnel=${TUNNEL_TCP}&internal_IP=${IP}&external_IP=${EXTERNALIP}" http://dweet.io/dweet/for/${dweet_id_tunnel} -O /dev/null
+	wget --post-data="tunnel=${TUNNEL_TCP}&internal_ip=${IP}&external_ip=${EXTERNALIP}" http://dweet.io/dweet/for/${dweet_id_tunnel} -O /dev/null
 	sleep $tunnel_delay
 done
