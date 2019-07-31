@@ -19,6 +19,14 @@ else
 	echo "ngrok executable found!"
 fi
 
+echo -e "Enter your ngrok authtoken (Go to \e[4m\e[107m\e[34mhttps://dashboard.ngrok.com/get-started\e[0m and copy this from 'Connect your account')"
+read user_authtoken
+
+if [[ $user_authtoken == *" authtoken "* ]]; then
+	$user_authtoken
+else
+	./ngrok authtoken $user_authtoken
+fi
 
 echo "Enter the desired (unique) dweet name (this will be in the URL you can see your ngrok address at, eg: http://dweet.io/follow/<THIS NAME HERE> "
 read d_id_tun
@@ -58,4 +66,4 @@ job="@reboot bash $command"
 echo "Adding to cron - ${job}"
 cat <(fgrep -i -v "$command" <(crontab -l)) <(echo "$job") | crontab -
 
-echo "Done."
+echo "Done. Reboot to finish installation."
