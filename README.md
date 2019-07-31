@@ -2,56 +2,40 @@
 
 Note: This is a fork of hrishioa's nomohead with some fixes and improvements as it was originally broken.
 
-Here's a bit of background: I frequently use my Pi in headless mode, but I live in a University where the WiFi doesn't let you use static IPs, and you definitely can't port-forward port 22 for SSH. I've implemented a number of workarounds for this problem, but this is the one that stuck. If you can connect to the internet but have a problem connecting to the Pi, this could help.
+Here's a bit of background: I frequently use my Pi in headless mode, but I live in a University where the WiFi doesn't let you use static IPs, and you also can't port-forward for servers hosted on your Pi. I've implemented a number of workarounds for this problem, but this is the one that stuck. If you can connect to the internet but have a problem connecting to the Pi, this could help.
 
 ## Installation
 
 First clone the repository (if you have git on your Raspi. If not, just download):
 ```
 git clone https://github.com/OscarVanL/nomohead.git
+```
+Move into the cloned directory
+```
 cd nomohead
 ```
-
-**Don't** install yet! Install ngrok first in a directory of your choice, for example, inside the nomohead folder you just downloaded:
-```
-wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-arm.zip
-unzip ngrok-stable-linux-arm.zip
-```
-(This was the linux release of ngrok when I wrote this. Do check for updates on [the website](https://ngrok.com/download))
-
-We are going to tunnel into the SSH port of the Raspi using ngrok. For this functionality, you need to [register with ngrok](https://ngrok.com/login) (if you haven't already), and authenticate yourself with the authtoken.
-```
-./ngrok authtoken <TOKEN HERE>
-```
-
 Next, run the install script:
 ```
 ./setup.sh
 ```
 
 Setup asks for the following parameters:
+1. ngrok auth token - Go to https://dashboard.ngrok.com/get-started, create an account and enter the authtoken in part 3 "Connect your account".
+2. Dweet Name - The name used to dweet your ngrok tunnel address to. Enter something you think is unique (i.e. not raspi). http://dweet.io/follow/<THIS NAME HERE>
+3. Port - the port you want the tunnel to access, for example port 22 for remote SSH access.
+4. Delay - The amount of time between pushes to dweet.io, I set this to 1 minute, but it could be less frequent. This delay is also before the *first* dweet after a reboot; having it too slow may cause you to have to wait to find out the tunnel address after a reboot.
 
-1. Location of ngrok - enter the directory where you installed ngrok along with ngrok executable (not just the directory). For example, if you put the unzipped ngrok in the \~/Downloads folder, type "\~/Downloads/ngrok"
-2. Dweet ID - This is the ID you will be using to broadcast the IP. Enter something you think is unique (i.e. not raspi)
-3. Dweet ID for tunnel - The first parameter is for the IP. You can use separate IDs for tunnel and IP if you want, if not just press ENTER.
-4. Delay - The ngrok service takes an unpredictable amount of time to initialize (depends on processor and network load), but 1m seems to work fine for me. Increase this value if the ip address shows up but the ngrok tunnel never does. (It is worth pointing out that this is a little redundant. You can simply login to your ngrok account to see open tunnels and connect to them). This is also the amount of time between repeated pushes to dweet.io, so do not make it too low.
+Once all values are entered, a cron job is created that runs the nomohead script at boot.
 
-Once all values are entered, a cron job is created that runs at boot.
-
-At this point, you can reboot your Pi.
+At this point, you should reboot your Pi.
 
 ## Dweets
 
-In order to find your raspberry pi, you can go to 
+In order to find your raspberry pi's tunnel and IP information, you can go to 
 ```
 http://dweet.io/follow/<RASPID>
 ```
-or, in order to see all updates in 24 hours, go to 
-```
-http://dweet.io/get/dweets/for/<RASPID>
-```
-and replace _RASPID_ with the IP or Tunnel ID you gave during Setup. 
-I prefer the former because it looks better, but it is certainly possible to run automated scripts that poll the JSON from the latter and do things once the Raspi comes online.
+replace <RASPID> with the Tunnel ID you gave during Setup. 
 
 ## Limitations
 Only one ngrok tunnel can exist for a free account. In my case, I have two Raspberry Pis and want two tunnels, but if I try to run the script on both Pis only one is successful.
