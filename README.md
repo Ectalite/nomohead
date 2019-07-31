@@ -9,9 +9,10 @@ Here's a bit of background: I frequently use my Pi in headless mode, but I live 
 First clone the repository (if you have git on your Raspi. If not, just download):
 ```
 git clone https://github.com/OscarVanL/nomohead.git
+cd nomohead
 ```
 
-**Don't** install yet! Install ngrok first in a directory of your choice:
+**Don't** install yet! Install ngrok first in a directory of your choice, for example, inside the nomohead folder you just downloaded:
 ```
 wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-arm.zip
 unzip ngrok-stable-linux-arm.zip
