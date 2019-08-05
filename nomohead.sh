@@ -5,6 +5,11 @@ echo "Loading config..."
 #Current directory (nomohead folder)
 DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 
+if [ ! -e "${DIR}/config.cfg" ]; then
+	echo "Config file does not exist, have you ran setup.sh yet? Aborting startup" | tee error.log
+	exit 1
+fi
+
 . "${DIR}/config.cfg"
 
 echo "Starting ngrok..."
