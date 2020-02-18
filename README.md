@@ -14,6 +14,10 @@ Move into the cloned directory
 ```
 cd nomohead
 ```
+Install dependencies (Apparently curl isn't always preinstalled?!?)
+```
+sudo apt-get install wget curl
+```
 Next, run the install script:
 ```
 ./setup.sh
