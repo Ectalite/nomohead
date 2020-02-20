@@ -16,7 +16,7 @@ cd nomohead
 ```
 Install dependencies (Apparently curl isn't always preinstalled?!?)
 ```
-sudo apt-get install wget curl
+sudo apt-get install wget curl unzip
 ```
 Next, run the install script:
 ```
