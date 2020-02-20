@@ -18,10 +18,28 @@ Install dependencies (Apparently curl isn't always preinstalled?!?)
 ```
 sudo apt-get install wget curl unzip
 ```
-Next, run the install script:
+
+#### If running an ARM 32-bit system:
+Run the setup script.
 ```
 ./setup.sh
 ```
+
+#### If running a non-ARM system:
+Navigate to https://ngrok.com/download and find the appropriate download link for your system, copy it and then download it.
+Eg:
+```
+wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
+```
+Then unzip the downloaded zip
+```
+unzip ngrok-stable-linux-amd64.zip
+```
+Then run the setup script.
+```
+./setup.sh
+```
+
 
 Setup asks for the following parameters:
 1. ngrok auth token - Go to https://dashboard.ngrok.com/get-started, create an account and enter the authtoken in part 3 "Connect your account".
