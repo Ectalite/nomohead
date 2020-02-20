@@ -25,7 +25,7 @@ sleep $tunnel_delay
 while true
 do
 	#Gets the internal IP
-	IP="$(ip route get 8.8.8.8 | awk 'NR==1 {print $NF}')"
+	IP="$(hostname -I)"
 	#Gets the external IP
 	EXTERNALIP="$(curl https://canihazip.com/s )"
 
