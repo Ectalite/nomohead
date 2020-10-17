@@ -37,6 +37,6 @@ do
 	TUNNEL_TCP=$(grep -Po 'tcp:\/\/[^"]+' ./tunnel_info.json )
 
 	#Pushes all this information to dweet.io
-	wget --post-data="tunnel=${TUNNEL_TCP}&internal_ip=${IP}&external_ip=${EXTERNALIP}" http://dweet.io/dweet/for/${dweet_id_tunnel} -o /dev/null
+	curl -d "tunnel=${TUNNEL_TCP}&internal_ip=${IP}&external_ip=${EXTERNALIP}" http://dweet.io/dweet/for/${dweet_id_tunnel}
 	sleep $tunnel_delay
 done
