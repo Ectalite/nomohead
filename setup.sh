@@ -23,10 +23,9 @@ echo -e "Enter your ngrok authtoken (Go to \e[4m\e[107m\e[34mhttps://dashboard.n
 read user_authtoken
 
 if [[ $user_authtoken == *" authtoken "* ]]; then
-	$user_authtoken
-else
-	./ngrok authtoken $user_authtoken
-fi
+	$user_authtoken=${user_authtoken##* }
+
+./ngrok authtoken $user_authtoken
 
 echo "Enter the desired (unique) dweet name (this will be in the URL you can see your ngrok address at, eg: http://dweet.io/follow/<THIS NAME HERE> "
 read d_id_tun
