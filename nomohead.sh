@@ -27,7 +27,7 @@ do
 	#Gets the internal IP
 	IP="$(hostname -I)"
 	#Gets the external IP
-	EXTERNALIP="$(curl -s https://canihazip.com/s )"
+	EXTERNALIP="$(curl -s https://api.ipify.org )"
 
 	echo "Dweeting IP... "
 

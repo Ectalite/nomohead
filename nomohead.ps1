@@ -1,9 +1,7 @@
 echo "Starting nomohead"
-
 echo "Loading config..."
 
 $pwd = Get-Location
-echo "Current working directory is: $pwd"
 
 if (-Not (Test-Path ".\config.cfg")) {
     throw "config.cfg could not be found. Exiting..."
@@ -24,8 +22,6 @@ echo "Refresh delay: $TunnelDelay"
 echo "Server location: $Server"
 
 echo "Starting ngrok..."
-
-
 echo "`"$pwd\ngrok.exe`" tcp -region $Server $NgrokPort"
 Start-Process "`"$pwd\ngrok.exe`"" -ArgumentList "tcp -region $Server $NgrokPort" -WindowStyle Minimized
 
@@ -36,6 +32,6 @@ while ($true) {
     $ExternalIP = (Invoke-WebRequest -Uri https://api.ipify.org?format=json | ConvertFrom-Json).ip
     $TunnelAPIResponse = (Invoke-WebRequest -Uri http://localhost:4040/api/tunnels | ConvertFrom-Json)
     $ngrokTunnel = $TunnelAPIResponse.tunnels[0].public_url
-    Invoke-WebRequest -Uri "http://dweet.io/dweet/for/$DweetId" -Method POST -Body "tunnel=$ngrokTunnel&internal_ip=$InternalIP&external_ip=$ExternalIP"
+    Invoke-WebRequest -Uri "http://dweet.io/dweet/for/$DweetId" -Method POST -Body "tunnel=$ngrokTunnel&internal_ip=$InternalIP&external_ip=$ExternalIP" | Out-Null
     Start-Sleep -s $TunnelDelay
 }

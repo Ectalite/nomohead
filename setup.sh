@@ -19,7 +19,7 @@ else
 	echo "ngrok executable found!"
 fi
 
-echo -e "Enter your ngrok authtoken (Go to \e[4m\e[107m\e[34mhttps://dashboard.ngrok.com/get-started\e[0m and copy this from 'Connect your account')"
+echo -e "Enter your ngrok authtoken (Go to \e[4m\e[107m\e[34mhttps://dashboard.ngrok.com/get-started\e[0m and copy this from 'Connect your account') : "
 read user_authtoken
 
 if [[ $user_authtoken == *" authtoken "* ]]; then
@@ -27,24 +27,24 @@ if [[ $user_authtoken == *" authtoken "* ]]; then
 
 ./ngrok authtoken $user_authtoken
 
-echo "Enter the desired (unique) dweet name (this will be in the URL you can see your ngrok address at, eg: http://dweet.io/follow/<THIS NAME HERE> "
+echo "Enter the desired (unique) dweet name (this will be in the URL you can see your ngrok address at, eg: http://dweet.io/follow/<THIS NAME HERE> : "
 read d_id_tun
 
-echo "Enter the port you want to tunnel to. (Leave empty for default of 22)"
+echo "Enter the port you want to tunnel to. (Leave empty for default of 22) : "
 read ngrok_port
 
 if [ "$ngrok_port" == "" ]; then
 	ngrok_port="22"
 fi
 
-echo "Enter the delay between refreshing dweet values (Leave empty for default of 1m): "
+echo "Enter the delay between refreshing dweet values (Leave empty for default of 1m) : "
 read tun_delay
 
 if [ "$tun_delay" = "" ]; then
 	tun_delay="1m"
 fi
 
-echo "Enter the ngrok server location you wish to use [us (USA), eu (Europe), ap (Asia/Pacific), au (Australia), sa (South America), jp (Japan), in (India)]: "
+echo "Enter the ngrok server location you wish to use [us (USA), eu (Europe), ap (Asia/Pacific), au (Australia), sa (South America), jp (Japan), in (India)] : "
 read server
 
 if [ "$server" == "us" ] || [ "$server" == "eu" ] || [ "$server" == "ap" ] || [ "$server" == "au" ] || [ "$server" == "sa"] || [ "$server" == "jp" ] || [ "$server" == "in" ]; then
