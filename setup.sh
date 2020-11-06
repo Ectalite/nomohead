@@ -12,9 +12,17 @@ cd "$(dirname "${BASH_SOURCE[0]}")"
 if [ $? != 0 ]; then
 	echo "ngrok executable was not found inside nomohead folder. Starting download..."
 	echo ""
-	wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-arm.zip
-	unzip ngrok-stable-linux-arm.zip 1> /dev/null &
-	echo "Download and unzip of ngrok executable complete"
+	download=""
+	zip=""
+	case $(uname -m) in
+		i386)   download="https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-386.zip" && zip="ngrok-stable-linux-386.zip" && echo "Downloading archive for x86 Linux" ;;
+		i686)   download="https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-386.zip" && zip="ngrok-stable-linux-386.zip" && echo "Downloading archive for x86 Linux" ;;
+		x86_64) download="https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip" && zip="ngrok-stable-linux-amd64.zip" && echo "Downloading archive for x86_64 Linux" ;;
+		arm)    dpkg --print-architecture | grep -q "arm64" && download="https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-arm64.zip" && zip="ngrok-stable-linux-arm64.zip" && echo "Downloading archive for arm64 Linux" || download="https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-arm.zip" && zip="ngrok-stable-arm.zip" && echo "Downloading archive for arm32 Linux" ;;
+	esac
+	wget "$download"
+	unzip "$zip" 1> /dev/null &
+	echo "Download and extraction of ngrok executable complete"
 else
 	echo "ngrok executable found!"
 fi
@@ -23,7 +31,8 @@ echo -e "Enter your ngrok authtoken (Go to \e[4m\e[107m\e[34mhttps://dashboard.n
 read user_authtoken
 
 if [[ $user_authtoken == *" authtoken "* ]]; then
-	$user_authtoken=${user_authtoken##* }
+	$user_authtoken=${user_authtoken##*; }
+fi
 
 ./ngrok authtoken $user_authtoken
 
@@ -47,10 +56,10 @@ fi
 echo "Enter the ngrok server location you wish to use [us (USA), eu (Europe), ap (Asia/Pacific), au (Australia), sa (South America), jp (Japan), in (India)] : "
 read server
 
-if [ "$server" == "us" ] || [ "$server" == "eu" ] || [ "$server" == "ap" ] || [ "$server" == "au" ] || [ "$server" == "sa"] || [ "$server" == "jp" ] || [ "$server" == "in" ]; then
+if [ "$server" == "us" ] || [ "$server" == "eu" ] || [ "$server" == "ap" ] || [ "$server" == "au" ] || [ "$server" == "sa" ] || [ "$server" == "jp" ] || [ "$server" == "in" ]; then
 	echo "Selected ${server} as ngrok server"
 else
-	echo "Invalid server choice, setting to eu instead"
+	echo "Invalid server choice, setting to eu instead";
 	server="eu"
 fi
 
