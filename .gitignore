@@ -1,2 +1,5 @@
 config.cfg
 tunnel_info.json
+*.zip
+ngrok.exe
+ngrok
