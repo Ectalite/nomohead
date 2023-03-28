@@ -28,8 +28,10 @@ do
 	echo "${TUNNEL}" > tunnel_info.json
 	#Gets the tunnel's address and port
 	TUNNEL_TCP=$(grep -Po 'tcp:\/\/[^"]+' ./tunnel_info.json )
+	
+	TIME=$(date +"Update: %T ||  %m-%d-%y")
 
 	#Pushes all this information to dweet.io
-	curl -d "tunnel=${TUNNEL_TCP}&internal_ip=${IP}&external_ip=${EXTERNALIP}" http://dweet.io/dweet/for/${dweet_id_tunnel}
+	curl -d "tunnel=${TUNNEL_TCP}&internal_ip=${IP}&external_ip=${EXTERNALIP}&time=${TIME}" http://dweet.io/dweet/for/${dweet_id_tunnel}
 	sleep $tunnel_delay
 done
