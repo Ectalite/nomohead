@@ -20,7 +20,7 @@ if [ $? != 0 ]; then
 		x86_64) download="https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz" && tgz="ngrok-stable-linux-amd64.tgz" && echo "Downloading archive for x86_64 Linux" ;;
 		arm*)    dpkg --print-architecture | grep -q "arm64" && download="https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-arm64.tgz" && tgz="ngrok-stable-linux-arm64.tgz" && echo "Downloading archive for arm64 Linux" || download="https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-arm.tgz" && tgz="ngrok-stable-arm.tgz" && echo "Downloading archive for arm32 Linux" ;;
 	esac
-	wget "$download -o $tgz"
+	wget "$download" -o "$tgz"
 	tar-xf "$tgz"
 	echo "Download and extraction of ngrok executable complete"
 else
