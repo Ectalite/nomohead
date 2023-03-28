@@ -15,14 +15,16 @@ if [ $? != 0 ]; then
 	download=""
 	zip=""
 	case $(uname -m) in
-		i386)   download="https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-386.tgz" && tgz="ngrok-stable-linux-386.tgz" && echo "Downloading archive for x86 Linux" ;;
-		i686)   download="https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-386.tgz" && tgz="ngrok-stable-linux-386.tgz" && echo "Downloading archive for x86 Linux" ;;
-		x86_64) download="https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz" && tgz="ngrok-stable-linux-amd64.tgz" && echo "Downloading archive for x86_64 Linux" ;;
-		arm*)    dpkg --print-architecture | grep -q "arm64" && download="https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-arm64.tgz" && tgz="ngrok-stable-linux-arm64.tgz" && echo "Downloading archive for arm64 Linux" || download="https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-arm.tgz" && tgz="ngrok-stable-arm.tgz" && echo "Downloading archive for arm32 Linux" ;;
+		i386)   download="https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-386.tgz" && tgz="ngrok-v3-stable-linux-386.tgz" && echo "Downloading archive for x86 Linux" ;;
+		i686)   download="https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-386.tgz" && tgz="ngrok-v3-stable-linux-386.tgz" && echo "Downloading archive for x86 Linux" ;;
+		x86_64) download="https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz" && tgz="ngrok-v3-stable-linux-amd64.tgz" && echo "Downloading archive for x86_64 Linux" ;;
+		arm*)    dpkg --print-architecture | grep -q "arm64" && download="https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-arm64.tgz" && tgz="ngrok-v3-stable-linux-arm64.tgz" && echo "Downloading archive for arm64 Linux" || download="https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-arm.tgz" && tgz="ngrok-v3-stable-linux-arm.tgz" && echo "Downloading archive for arm32 Linux" ;;
 	esac
-	wget "$download" -o "$tgz"
+	wget "$download"
 	tar -xf "$tgz"
 	echo "Download and extraction of ngrok executable complete"
+	echo "Removing archive..."
+	rm "$tgz"
 else
 	echo "ngrok executable found!"
 fi
