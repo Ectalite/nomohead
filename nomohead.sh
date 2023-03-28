@@ -12,13 +12,6 @@ fi
 
 . "${DIR}/config.cfg"
 
-echo "Starting ngrok..."
-
-#Creates command to run ngrok using defined directory in setup.sh (Eg: ~/Downloads/ngrok)
-COMMAND=("${DIR}/ngrok" tcp -region "${ngrok_server}" "${port}")
-
-"${COMMAND[@]}" > /dev/null &
-
 #Sleeps for delay defined in setup.sh
 sleep $tunnel_delay
 
