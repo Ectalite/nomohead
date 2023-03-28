@@ -63,6 +63,18 @@ else
 	server="eu"
 fi
 
+echo "Installing ngrok service"
+ngrokconf=\
+"version: \"2\"\n\
+authtoken: $user_authtoken\n\
+region: $server\n\
+tunnels:\n\
+  ssh:\n\
+    proto: tcp\n\
+    addr: $ngrok_port"
+echo -e "$ngrokconf" > ngrok.yml
+command="${DIR}/ngrok service install --config ngrok.yml"
+
 printf "dweet_id_tunnel=${d_id_tun}\nport=${ngrok_port}\ntunnel_delay=${tun_delay}\nngrok_server=${server}" > config.cfg
 
 echo "Adding Cron job..."
