@@ -2,6 +2,8 @@
 
 echo -e "\e[1m\e[44mWelcome to nomohead's setup script! \e[0m"
 
+[[ $EUID -ne 0 ]] && echo "This script must be run as root." && exit 1
+
 echo ""
 
 echo "Testing to see if ngrok is contained inside this folder..."
